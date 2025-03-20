@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
                     $record = \App\Models\Subdomain::where('subdomain_name', $subdomain )->first(); // . '.' . config('app.url')
                     if (!$record) abort(404);
     
-                    return response()->file(storage_path("app/subdomains/$subdomain")); // {$record->folder_path}/index.html
+                    return response()->file(storage_path("app/subdomains/$subdomain/index.html")); // {$record->folder_path}/index.html
                 });
             });
     }
