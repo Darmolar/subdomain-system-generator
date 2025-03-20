@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Route::domain('{subdomain}.' . parse_url(config('app.url'), PHP_URL_HOST))
             ->group(function () {
                 Route::get('/', function ($subdomain) {
-                    $record = \App\Models\Subdomain::where('subdomain_name', $subdomain . '.' . config('app.url'))->first();
+                    $record = \App\Models\Subdomain::where('subdomain_name', $subdomain )->first(); // . '.' . config('app.url')
                     if (!$record) abort(404);
     
                     return response()->file(storage_path("app/{$record->folder_path}/index.html"));
