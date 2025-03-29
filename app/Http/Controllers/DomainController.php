@@ -210,7 +210,7 @@ class DomainController extends Controller
                 'error' => "Sorry domain is not connected to IP yet",
             ], 400);
         }
-
+        $domain = strtolower($request->domain_name);
         $domainName = strtolower($request->domain_name);
         $fullDomain = $domainName; // $request->is_subdomain ? "{$domainName}." . env('APP_SHORT_URL') : $domainName;
         $folderPath = "/var/www/sites/{$fullDomain}";
