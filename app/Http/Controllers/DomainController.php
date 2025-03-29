@@ -205,7 +205,7 @@ class DomainController extends Controller
         }
  
         $domainIP = gethostbyname($domain); 
-        if($serverIP === $domainIP){
+        if($serverIP !== $domainIP){
             return response()->json([
                 'error' => 'Sorry domain is not connected to IP yet',
             ], 400);
@@ -219,8 +219,10 @@ class DomainController extends Controller
             $zipFile = $request->file('html_code');
             $zipPath = $zipFile->store('temp');
 
-            if (!$zipPath) {
-                throw new \Exception("Failed to store the uploaded zip file.");
+            if (!$zipPath) { 
+                return response()->json([
+                    'error' => "Failed to store the uploaded zip file."
+                ], 400);
             }
 
             $zipFilePath = storage_path("app/private/{$zipPath}");
@@ -251,8 +253,10 @@ class DomainController extends Controller
             $zip = new ZipArchive();
             if ($zip->open($zipFilePath) === true) {
                 if (!$zip->extractTo($folderPath)) {
-                    $zip->close();
-                    throw new \Exception("Failed to extract zip contents.");
+                    $zip->close(); 
+                    return response()->json([
+                        'error' => "Failed to extract zip contents."
+                    ], 400);
                 }
                 $zip->close();
                 Storage::delete($zipPath);
@@ -262,7 +266,9 @@ class DomainController extends Controller
                     'folder_path' => "https://{$subdomain}", // $folderPath,
                 ]);
             } else {
-                throw new \Exception("Invalid zip file.");
+                return response()->json([
+                    'error' => "Invalid zip file."
+                ], 400); 
             }
             return response()->json([
                 'message' => 'Domain created successfully.',
