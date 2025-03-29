@@ -263,7 +263,7 @@ class DomainController extends Controller
                 Domain::create([
                     'project_id' => uniqid(),
                     'domain_name' => $request->domain_name,
-                    'folder_path' => "https://{$subdomain}", // $folderPath,
+                    'folder_path' => "https://{$domain}", 
                 ]);
             } else {
                 return response()->json([
