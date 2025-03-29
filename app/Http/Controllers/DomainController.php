@@ -373,7 +373,7 @@ class DomainController extends Controller
         $domain = $request->domain;
 
         try {
-            $command = "sudo certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain 2>&1";
+            $command = "certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain 2>&1";
             exec($command, $output, $status);
 
             if ($status !== 0) {
@@ -386,7 +386,7 @@ class DomainController extends Controller
             return response()->json([
                 'message' => "SSL certificate generated successfully for $domain.",
             ], 201);
-            
+
             // shell_exec("sudo certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain");
             // return response()->json(['message' => "SSL regenerated successfully for $domain"]);
         } catch (\Exception $e) {
