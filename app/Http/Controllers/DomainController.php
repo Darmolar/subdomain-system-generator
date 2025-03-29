@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use ZipArchive;
+// use ZipArchive;
 
 class DomainController extends Controller
 {
@@ -250,7 +250,7 @@ class DomainController extends Controller
             shell_exec("systemctl reload apache2");
             shell_exec("certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain");
 
-            $zip = new ZipArchive();
+            $zip = new \ZipArchive();
             if ($zip->open($zipFilePath) === true) {
                 if (!$zip->extractTo($folderPath)) {
                     $zip->close(); 
