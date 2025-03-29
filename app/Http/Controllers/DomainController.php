@@ -373,7 +373,7 @@ class DomainController extends Controller
         $domain = $request->domain;
 
         try {
-            $command = "certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain 2>&1";
+            $command = "sudo certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain 2>&1";
             exec($command, $output, $status);
 
             if ($status !== 0) {
