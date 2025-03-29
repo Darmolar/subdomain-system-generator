@@ -205,11 +205,11 @@ class DomainController extends Controller
         }
  
         $domainIP = gethostbyname($domain); 
-        if($serverIP !== $domainIP){
+        // if($serverIP !== $domainIP){
             return response()->json([
-                'error' => 'Sorry domain is not connected to IP yet',
+                'error' => "Sorry domain is not connected to IP yet $serverIP  $domainIP ",
             ], 400);
-        }
+        // }
 
         $domainName = strtolower($request->domain_name);
         $fullDomain = $domainName; // $request->is_subdomain ? "{$domainName}." . env('APP_SHORT_URL') : $domainName;
