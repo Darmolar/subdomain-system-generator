@@ -204,7 +204,7 @@ class DomainController extends Controller
             ], 400);
         }
  
-        $domainIP = gethostbyname($domain); 
+        $domainIP = gethostbyname($request->domain_name); 
         // if($serverIP !== $domainIP){
             return response()->json([
                 'error' => "Sorry domain is not connected to IP yet $serverIP  $domainIP ",
