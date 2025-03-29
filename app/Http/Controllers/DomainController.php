@@ -246,8 +246,8 @@ class DomainController extends Controller
             </VirtualHost>";
 
             file_put_contents("/etc/apache2/sites-available/$fullDomain.conf", $vhostConfig);
-            shell_exec("a2ensite $fullDomain.conf");
-            shell_exec("systemctl reload apache2");
+            shell_exec("sudo a2ensite $fullDomain.conf");
+            shell_exec("sudo systemctl reload apache2");
             shell_exec("certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain");
 
             $zip = new \ZipArchive();
@@ -272,7 +272,7 @@ class DomainController extends Controller
             }
             return response()->json([
                 'message' => 'Domain created successfully.',
-                'url' => "http://{$fullDomain}",
+                'url' => "https://{$fullDomain}",
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
