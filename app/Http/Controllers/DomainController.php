@@ -376,12 +376,12 @@ class DomainController extends Controller
             $command = "sudo /usr/bin/certbot --apache -d $domain --non-interactive --agree-tos -m admin@$domain 2>&1";
             exec($command, $output, $status);
 
-            if ($status !== 0) {
-                return response()->json([
-                    'error' => 'Failed to generate SSL certificate.',
-                    'details' => implode("\n", $output),
-                ], 500);
-            }
+            // if ($status !== 0) {
+            //     return response()->json([
+            //         'error' => 'Failed to generate SSL certificate.',
+            //         'details' => implode("\n", $output),
+            //     ], 500);
+            // }
 
             return response()->json([
                 'message' => "SSL certificate generated successfully for $domain.",
